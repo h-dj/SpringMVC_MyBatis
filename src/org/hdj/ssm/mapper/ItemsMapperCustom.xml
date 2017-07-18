@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="org.hdj.ssm.mapper.ItemsMapperCustom" >
+  
+  <!--
+  	查询条件
+    -->
+  <sql id="find_item_where">
+  	<if test="ItemsCustom!=null">
+  		<if test="ItemsCustom.name!=null and ItemsCustom.name=!''">
+  			items.name LIKE '%'|| ${ItemsCustom.name} ||'%'
+  		</if>
+  	</if>
+  </sql>
+  
+  <select id="findItemsList" resultType="org.hdj.ssm.po.ItemsCustom" parameterType="org.hdj.ssm.po.ItemsCustomVo">
+	  	SELECT
+		*
+		FROM
+			items
+		<where>
+			<include refid="find_item_where"></include>
+		</where>
+  </select>
+</mapper>

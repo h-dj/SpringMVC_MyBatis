@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns="http://java.sun.com/xml/ns/javaee" xmlns:web="http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
+	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd"
+	id="WebApp_ID" version="3.0">
+	
+	<!-- 加载spring容器 
+	
+	-->
+	<context-param>
+		<param-name>contextConfigLocation</param-name>
+		<param-value>/WEB-INF/classes/config/spring/ApplicationContext-*.xml</param-value>
+	</context-param>
+	<listener>
+		<listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
+	</listener>
+	
+	
+	<!-- 配置前端控制器 -->
+	<servlet>
+		<servlet-name>springmvc</servlet-name>
+		<servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+		<!--配置加载springmvc配置文件 (配置处理器映射器，适配器)； 如果不配置contextConfigLocation：默认加载WEB-INF/classes/下的servlet名-servlet.xml 
+			即springmvc-servlet.xml -->
+		<init-param>
+			<param-name>contextConfigLocation</param-name>
+			<param-value>classpath:config/spring/springmvc.xml</param-value>
+		</init-param>
+	</servlet>
+
+	<servlet-mapping>
+		<servlet-name>springmvc</servlet-name>
+		<!-- url-pattern有三种配置： 第一种：*.action；这种配置会被DispatcherServlet拦截一action结尾的所有访问进行解析 
+			第二种：/, 这种配置会被DispatcherServlet拦截所有访问进行解析；但对静态页面访问不会拦截 第三种 /* ，这种拦截所有访问；所以当响应jsp页面时，也会被拦截，进行解析； 
+			这时就会因为不能从jsp页面解析出handler而报错 -->
+		<url-pattern>/</url-pattern>
+	</servlet-mapping>
+</web-app>
