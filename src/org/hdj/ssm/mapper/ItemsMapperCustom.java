@@ -9,4 +9,9 @@ import org.hdj.ssm.po.items;
 public interface ItemsMapperCustom {
     
 	public Collection<ItemsCustom> findItemsList(ItemsCustomVo itemsCustomVo) throws Exception;
+
+	public Integer deleteItems(Integer[] items_id) throws Exception;
+	
+	//ÅúÁ¿ÐÞ¸Ä
+		public Integer updateItemsList(ItemsCustomVo itemsCustomVo)throws Exception;
 }

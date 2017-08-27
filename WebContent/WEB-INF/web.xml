@@ -4,17 +4,51 @@
 	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd"
 	id="WebApp_ID" version="3.0">
 	
-	<!-- 加载spring容器 
-	
-	-->
+	 <!-- 加载spring容器 -->
 	<context-param>
 		<param-name>contextConfigLocation</param-name>
-		<param-value>/WEB-INF/classes/config/spring/ApplicationContext-*.xml</param-value>
+		<param-value>classpath:spring/ApplicationContext-*.xml</param-value>
 	</context-param>
+	
+	
 	<listener>
 		<listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
-	</listener>
+	</listener> 
 	
+	<!-- 处理post请求乱码问题 -->
+	<filter>
+		<filter-name>CharacterEncodingFilter</filter-name>
+		<filter-class>org.springframework.web.filter.CharacterEncodingFilter</filter-class>
+		<init-param>
+		<param-name>encoding</param-name>
+		<param-value>utf-8</param-value>
+		</init-param>
+	</filter>
+	<filter-mapping>
+		<filter-name>CharacterEncodingFilter</filter-name>
+		<url-pattern>/*</url-pattern>
+	</filter-mapping>
+	
+	  <servlet-mapping>
+            <servlet-name>default</servlet-name>
+            <url-pattern>*.css</url-pattern>
+        </servlet-mapping>
+
+        <servlet-mapping>
+            <servlet-name>default</servlet-name>
+            <url-pattern>*.gif</url-pattern>
+
+        </servlet-mapping>
+
+        <servlet-mapping>
+            <servlet-name>default</servlet-name>
+            <url-pattern>*.jpg</url-pattern>
+        </servlet-mapping>
+
+        <servlet-mapping>
+            <servlet-name>default</servlet-name>
+            <url-pattern>*.js</url-pattern>
+        </servlet-mapping>
 	
 	<!-- 配置前端控制器 -->
 	<servlet>
@@ -24,7 +58,7 @@
 			即springmvc-servlet.xml -->
 		<init-param>
 			<param-name>contextConfigLocation</param-name>
-			<param-value>classpath:config/spring/springmvc.xml</param-value>
+			<param-value>classpath:spring/springmvc.xml</param-value>
 		</init-param>
 	</servlet>
 
@@ -35,4 +69,8 @@
 			这时就会因为不能从jsp页面解析出handler而报错 -->
 		<url-pattern>/</url-pattern>
 	</servlet-mapping>
+	
+	
+	
+	
 </web-app>
